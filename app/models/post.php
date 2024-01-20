@@ -3,10 +3,10 @@
 class Post implements \JsonSerializable
 {
     private int $id;
-    private string $text;
+    private string $text = "";
     private int $user_id;
-    private string $username;
-    private string $name;
+    private string $username = "";
+    private string $name = "";
 
     #[ReturnTypeWillChange]
     public function jsonSerialize()
