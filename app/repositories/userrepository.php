@@ -48,6 +48,29 @@ class UserRepository extends Repository
         return $user;
     }
 
+    public function getByUsername($username)
+    {
+        $stmt = $this->connection->prepare("SELECT `id`, `name`, `username`, `email`, `password`, `role` 
+                                       FROM `users` WHERE `username` = :username");
+
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user = null;
+
+        while ($row = $stmt->fetch()) {
+            $user = new User();
+            $user->setId($row['id']);
+            $user->setName($row['name']);
+            $user->setEmail($row['email']);
+            $user->setUsername($row['username']);
+            $user->setPassword($row['password']);
+            $user->setRole($row['role']);
+        }
+
+        return $user;
+    }
+
     public function edit($user)
     {
         $stmt = $this->connection->prepare("UPDATE users 

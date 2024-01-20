@@ -21,6 +21,11 @@ class PostService
         return $this->postRepository->getById($id);
     }
 
+    public function getByUserId($userId)
+    {
+        return $this->postRepository->getByUserId($userId);
+    }
+
     public function insert($postData)
     {
         return $this->postRepository->insert($postData);
