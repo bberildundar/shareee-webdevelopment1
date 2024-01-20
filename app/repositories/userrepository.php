@@ -19,6 +19,8 @@ class UserRepository extends Repository
 
     public function insert($user)
     {
+        $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+
         $stmt = $this->connection->prepare("INSERT INTO users (name, username, email, password, role) 
         VALUES (:name, :username, :email, :password, :role)");
 
@@ -28,7 +30,7 @@ class UserRepository extends Repository
             ':name' => $user->getName(),
             ':username' => $user->getUsername(),
             ':email' => $user->getEmail(),
-            ':password' => $user->getPassword(),
+            ':password' => $hash,
             ':role' => $roleValue,
         ]);
 
@@ -68,7 +70,7 @@ class UserRepository extends Repository
     public function getByUsername($username)
     {
         $stmt = $this->connection->prepare("SELECT `id`, `name`, `username`, `email`, `password`, `role` 
-                                       FROM `users` WHERE `username` = :username");
+            FROM `users` WHERE `username` = :username");
 
         $stmt->bindValue(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
@@ -86,6 +88,11 @@ class UserRepository extends Repository
         }
 
         return $user;
+    }
+
+    public function passwordVerify(string $password, string $userPassword): bool
+    {
+        return (password_verify($password, $userPassword));
     }
 
     public function update($user)
