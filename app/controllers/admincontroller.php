@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/controller.php';
 require __DIR__ . '/../services/userservice.php';
-require __DIR__ . '/../services/postSErvice.php';
+require __DIR__ . '/../services/postService.php';
 
 class AdminController extends Controller
 {
@@ -21,16 +21,21 @@ class AdminController extends Controller
         require __DIR__ . '/../views/admin/users.php';
     }
 
-    public function editUser()
+    public function updateUser()
     {
         $user = $this->userService->getById($_GET['id']);
-        require __DIR__ . '/../views/admin/editUser.php';
+        require __DIR__ . '/../views/admin/updateUser.php';
     }
 
     public function deletePost()
     {
-        //$post = $this->postService->getById($_GET['id']);
         $this->postService->delete($_GET['id']);
         header('Location: /');
+    }
+
+    public function deleteUser()
+    {
+        $this->userService->delete($_GET['id']);
+        header('Location: /admin/users');
     }
 }

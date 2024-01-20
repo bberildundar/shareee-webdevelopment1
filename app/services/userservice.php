@@ -29,9 +29,9 @@ class UserService
         return $this->userRepository->insert($user);
     }
 
-    public function edit($user)
+    public function update($user)
     {
-        return $this->userRepository->edit($user);
+        return $this->userRepository->update($user);
     }
 
     public function delete($user_id)

@@ -22,12 +22,13 @@
                 <td class="px-6 py-4 whitespace-nowrap"><?php echo $user->getRole() ? 'Admin' : 'User'; ?></td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4"
-                        onclick="location.href='/admin/editUser?id=<?= $user->getId() ?>'">
+                        onclick="location.href='/admin/updateUser?id=<?= $user->getId() ?>'">
                         Edit
                     </button>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4">
+                    <button onclick="location.href='/admin/deleteUser?id=<?= $user->getId() ?>'"
+                        class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4">
                         Delete
                     </button>
                 </td>

@@ -71,22 +71,20 @@ class UserRepository extends Repository
         return $user;
     }
 
-    public function edit($user)
+    public function update($user)
     {
         $stmt = $this->connection->prepare("UPDATE users 
                                            SET name = :name, 
                                                username = :username, 
                                                email = :email, 
-                                               role = :role 
                                            WHERE id = :id");
 
-        $results = $stmt->execute([
-            ':id' => $user->getId(),
-            ':name' => $user->getName(),
-            ':username' => $user->getUsername(),
-            ':email' => $user->getEmail(),
-            ':role' => $user->getRole(),
-        ]);
+        $stmt->bindParam(':id', $user->getId(), PDO::PARAM_INT);
+        $stmt->bindParam(':name', $user->getName(), PDO::PARAM_STR);
+        $stmt->bindParam(':username', $user->getUsername(), PDO::PARAM_STR);
+        $stmt->bindParam(':email', $user->getEmail(), PDO::PARAM_STR);
+
+        $results = $stmt->execute();
 
         return $results;
     }
