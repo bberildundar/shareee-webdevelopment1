@@ -28,6 +28,16 @@ class PostRepository extends Repository
         return $post;
     }
 
+    public function getByUserId($user_id)
+    {
+        $stmt = $this->connection->prepare("SELECT `id`, `text`, `user_id` FROM posts WHERE user_id = :user_id ORDER BY id DESC");
+        $stmt->execute([':user_id' => $user_id]);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post');
+        $posts = $stmt->fetchAll();
+
+        return $posts;
+    }
 
     public function insert($post)
     {

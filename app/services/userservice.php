@@ -20,6 +20,10 @@ class UserService
     {
         return $this->userRepository->getById($id);
     }
+    public function getByUsername($username)
+    {
+        return $this->userRepository->getByUsername($username);
+    }
     public function insert($user)
     {
         return $this->userRepository->insert($user);

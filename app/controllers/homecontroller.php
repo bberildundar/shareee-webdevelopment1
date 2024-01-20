@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__ . '/controller.php';
 require __DIR__ . '/../services/postservice.php';
 require __DIR__ . '/../services/userservice.php';
