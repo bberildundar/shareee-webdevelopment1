@@ -76,18 +76,24 @@ class UserRepository extends Repository
         $stmt = $this->connection->prepare("UPDATE users 
                                            SET name = :name, 
                                                username = :username, 
-                                               email = :email, 
+                                               email = :email
                                            WHERE id = :id");
 
-        $stmt->bindParam(':id', $user->getId(), PDO::PARAM_INT);
-        $stmt->bindParam(':name', $user->getName(), PDO::PARAM_STR);
-        $stmt->bindParam(':username', $user->getUsername(), PDO::PARAM_STR);
-        $stmt->bindParam(':email', $user->getEmail(), PDO::PARAM_STR);
+        $id = $user->getId();
+        $name = $user->getName();
+        $username = $user->getUsername();
+        $email = $user->getEmail();
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
         $results = $stmt->execute();
 
         return $results;
     }
+
 
     public function delete($user_id)
     {

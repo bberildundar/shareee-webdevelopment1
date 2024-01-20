@@ -1,7 +1,10 @@
 <?php include __DIR__ . "/../header.php"; ?>
 
 <div class="min-h-screen px-48 py-16">
-    <form action="updateUser" method="POST" class="max-w-md mx-auto">
+    <form action="/admin/updateUser?id=<?php echo $user->getId(); ?>" method="POST" class="max-w-md mx-auto">
+        <?php if (isset($errorMessage)) : ?>
+            <p class="text-red-400 mb-3"><?= $errorMessage ?></p>
+        <?php endif; ?>
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-gray-600">Name</label>
             <input type="text" id="name" name="name" value="<?php echo $user->getName(); ?>" class="mt-1 p-2 w-full border" required placeholder="Name">
@@ -15,15 +18,6 @@
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
             <input type="email" id="email" name="email" value="<?php echo $user->getEmail(); ?>" class="mt-1 p-2 w-full border" required placeholder="example@email.com">
-        </div>
-
-        <div class="mb-4">
-            <label for="role" class="block text-sm font-medium text-gray-600">Role</label>
-            <select id="role" name="role" class="mt-1 p-2 w-36 border border-gray-600 bg-white" required>
-                <option value="" disabled selected>Select Role</option>
-                <option value="admin" <?php echo $user->getRole() ? 'selected' : ''; ?>>Admin</option>
-                <option value="user" <?php echo !$user->getRole() ? 'selected' : ''; ?>>User</option>
-            </select>
         </div>
 
         <p class="text-gray-600 text-sm mb-4">All fields are required.</p>
