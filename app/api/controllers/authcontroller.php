@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__ . '/../../services/userService.php';
 
 class AuthController
@@ -23,10 +24,28 @@ class AuthController
             $newUser->setPassword($newUserData['password']);
             $newUser->setRole(false); // 0 as default NORMAL user. false is a normal user
 
-            $this->userService->insert($newUser);
-        } catch (Exception $e) {
+            if (
+                $this->userService->isUsernameTaken($newUser->getUsername()) !== true
+                && $this->userService->isEmailTaken($newUser->getEmail()) !== true
+            ) {
+                $this->userService->insert($newUser);
+                echo json_encode(["success" => true]);
 
-            echo "Error: " . $e->getMessage();
+                //log in the new user
+                $loggedInUser = $this->userService->getByUsername($newUser->getUsername());
+                $_SESSION['user_id'] = $loggedInUser->getId();
+                $_SESSION['username'] = $loggedInUser->getUsername();
+                $_SESSION['email'] = $loggedInUser->getEmail();
+                $_SESSION['user_role'] = $loggedInUser->getRole();
+            } else {
+                // bad Request
+                http_response_code(400);
+                echo json_encode(["error" => "Username or email is already taken."]);
+            }
+        } catch (Exception $e) {
+            // server Error
+            http_response_code(500);
+            echo json_encode(["error" => $e->getMessage()]);
         }
     }
 }

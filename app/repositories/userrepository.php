@@ -29,11 +29,28 @@ class UserRepository extends Repository
             ':username' => $user->getUsername(),
             ':email' => $user->getEmail(),
             ':password' => $user->getPassword(),
-            ':role' => $roleValue, //uses the converted boolean value
+            ':role' => $roleValue,
         ]);
 
         return $results;
     }
+
+    public function isUsernameTaken($username)
+    {
+        $existingUser = $this->getByUsername($username);
+        return $existingUser !== null;
+    }
+
+    public function isEmailTaken($email)
+    {
+        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+
 
     public function getById($user_id)
     {
@@ -71,25 +88,29 @@ class UserRepository extends Repository
         return $user;
     }
 
-    public function edit($user)
+    public function update($user)
     {
         $stmt = $this->connection->prepare("UPDATE users 
                                            SET name = :name, 
                                                username = :username, 
-                                               email = :email, 
-                                               role = :role 
+                                               email = :email
                                            WHERE id = :id");
 
-        $results = $stmt->execute([
-            ':id' => $user->getId(),
-            ':name' => $user->getName(),
-            ':username' => $user->getUsername(),
-            ':email' => $user->getEmail(),
-            ':role' => $user->getRole(),
-        ]);
+        $id = $user->getId();
+        $name = $user->getName();
+        $username = $user->getUsername();
+        $email = $user->getEmail();
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        $results = $stmt->execute();
 
         return $results;
     }
+
 
     public function delete($user_id)
     {
