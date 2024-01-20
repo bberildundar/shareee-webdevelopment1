@@ -12,10 +12,10 @@
       <div class="container mx-auto flex justify-between items-center">
         <div class="flex items-center">
           <a href="/" class="text-white text-4xl font-semibold mr-4">SHAREEE!</a>
-          <a href="/" class="text-white hover:text-gray-300 ml-9 font-bold text-lg">Home</a>
+          <a href="/" class="text-white hover:text-gray-300 ml-9 font-bold text-lg">Homepage</a>
           <?php
           if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
-            echo '<a href="/profile" class="text-white hover:text-gray-300 ml-9 font-bold text-lg">Profile</a>';
+            echo '<a href="/profile" class="text-white hover:text-gray-300 ml-9 font-bold text-lg">My Profile</a>';
           }
           if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null && $_SESSION['user_role'] === true) {
             echo '<a href="/admin/users" class="text-white hover:text-gray-300 ml-9 font-bold text-lg">Edit Users</a>';

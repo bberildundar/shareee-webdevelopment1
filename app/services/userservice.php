@@ -28,6 +28,14 @@ class UserService
     {
         return $this->userRepository->insert($user);
     }
+    public function isUsernameTaken($username)
+    {
+        return $this->userRepository->isUsernameTaken($username);
+    }
+    public function isEmailTaken($email)
+    {
+        return $this->userRepository->isEmailTaken($email);
+    }
 
     public function update($user)
     {

@@ -23,10 +23,21 @@ class AuthController
             $newUser->setPassword($newUserData['password']);
             $newUser->setRole(false); // 0 as default NORMAL user. false is a normal user
 
-            $this->userService->insert($newUser);
+            if (
+                $this->userService->isUsernameTaken($newUser->getUsername()) !== true
+                && $this->userService->isEmailTaken($newUser->getEmail()) !== true
+            ) {
+                $this->userService->insert($newUser);
+                echo json_encode(["success" => true]);
+            } else {
+                // bad Request
+                http_response_code(400);
+                echo json_encode(["error" => "Username or email is already taken."]);
+            }
         } catch (Exception $e) {
-
-            echo "Error: " . $e->getMessage();
+            // server Error
+            http_response_code(500);
+            echo json_encode(["error" => $e->getMessage()]);
         }
     }
 }

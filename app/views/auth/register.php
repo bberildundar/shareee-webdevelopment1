@@ -84,15 +84,22 @@ function register() {
                 },
                 body: JSON.stringify(data),
             })
-            .then(response => {
-                //go to homepage
-                window.location.href = "/";
-                console.log("ye")
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // id successful go to homepage
+                    window.location.href = "/";
+                    console.log("Redirecting to homepage");
+                } else {
+                    // error messages to the user
+                    throw new Error(data.error || 'Registration failed. Please try again.');
+                }
             })
             .catch((err) => {
                 console.error('Error: ', err);
+                // display an error message 
+                window.alert(err.message);
             });
     }
-
 }
 </script>

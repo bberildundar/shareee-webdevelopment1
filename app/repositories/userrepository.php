@@ -29,11 +29,28 @@ class UserRepository extends Repository
             ':username' => $user->getUsername(),
             ':email' => $user->getEmail(),
             ':password' => $user->getPassword(),
-            ':role' => $roleValue, //uses the converted boolean value
+            ':role' => $roleValue,
         ]);
 
         return $results;
     }
+
+    public function isUsernameTaken($username)
+    {
+        $existingUser = $this->getByUsername($username);
+        return $existingUser !== null;
+    }
+
+    public function isEmailTaken($email)
+    {
+        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+
 
     public function getById($user_id)
     {

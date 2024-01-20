@@ -21,6 +21,11 @@ class Profilecontroller extends Controller
             $user = $this->userService->getById($_SESSION['user_id']);
             $myPosts = $this->postService->getByUserId($_SESSION['user_id']);
 
+            foreach ($myPosts as $post) {
+                $post->setName($user->getName());
+                $post->setUsername($user->getUsername());
+            }
+
             require __DIR__ . '/../views/profile/index.php';
         } else {
             header('Location: /');
