@@ -1,4 +1,5 @@
 <?php
+session_start();
 require __DIR__ . '/../../services/userService.php';
 
 class AuthController
@@ -29,6 +30,13 @@ class AuthController
             ) {
                 $this->userService->insert($newUser);
                 echo json_encode(["success" => true]);
+
+                //log in the new user
+                $loggedInUser = $this->userService->getByUsername($newUser->getUsername());
+                $_SESSION['user_id'] = $loggedInUser->getId();
+                $_SESSION['username'] = $loggedInUser->getUsername();
+                $_SESSION['email'] = $loggedInUser->getEmail();
+                $_SESSION['user_role'] = $loggedInUser->getRole();
             } else {
                 // bad Request
                 http_response_code(400);
