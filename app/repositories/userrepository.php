@@ -46,6 +46,7 @@ class UserRepository extends Repository
     public function isEmailTaken($email)
     {
         $stmt = $this->connection->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -59,13 +60,16 @@ class UserRepository extends Repository
         $stmt = $this->connection->prepare("SELECT `id`, `name`, `username`, `email`, `password`, `role` 
                                            FROM `users` WHERE `id` = :user_id");
 
-        $stmt->execute([':user_id' => $user_id]);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $user = $stmt->fetch();
 
         return $user;
     }
+
 
     public function getByUsername($username)
     {
@@ -121,7 +125,7 @@ class UserRepository extends Repository
 
     public function delete($user_id)
     {
-        //this also deletes the posts by the user 
+        // this also deletes the posts by the user 
         $stmt = $this->connection->prepare("
             DELETE users, posts
             FROM users
@@ -129,7 +133,9 @@ class UserRepository extends Repository
             WHERE users.id = :user_id
         ");
 
-        $results = $stmt->execute([':user_id' => $user_id]);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        $results = $stmt->execute();
 
         return $results;
     }
