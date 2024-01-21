@@ -7,7 +7,7 @@
 -password: admin123
 
 
-### Normal account:
+### User account:
 
 -username: lukesky
 
