@@ -1,4 +1,4 @@
-* The SQL file is in /sql folder: shareeedb (there are 3 e letters)
+* The SQL file is in /sql folder: shareeedb.sql (there are 3 e letters)
 
 ### Admin account:
 
