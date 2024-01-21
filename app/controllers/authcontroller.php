@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             $user = $this->userService->getByUsername($username);
 
-            if ($user !== null && $this->passwordVerify($password, $user) === true) {
+            if ($user !== null && $this->userService->passwordVerify($password, $user->getPassword())) {
                 $_SESSION['user_id'] = $user->getId();
                 $_SESSION['username'] = $user->getUsername();
                 $_SESSION['email'] = $user->getEmail();
@@ -48,17 +48,6 @@ class AuthController extends Controller
         }
 
         require __DIR__ . '/../views/auth/login.php';
-    }
-
-    private function passwordVerify($password, $user): bool
-    {
-        if ($user === null) {
-            return false;
-        } else if ($password == $user->getPassword()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public function logout()

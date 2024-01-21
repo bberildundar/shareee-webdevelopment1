@@ -17,6 +17,7 @@ class HomeController extends Controller
 
     public function index()
     {
+
         $posts = $this->postService->getAll();
         if (isset($_SESSION['user_id'])) {
             $loggedInUser = $this->userService->getById($_SESSION['user_id']);

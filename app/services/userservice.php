@@ -46,4 +46,9 @@ class UserService
     {
         return $this->userRepository->delete($user_id);
     }
+
+    public function passwordVerify(string $password, string $userPassword)
+    {
+        return $this->userRepository->passwordVerify($password, $userPassword);
+    }
 }

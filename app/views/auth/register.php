@@ -60,13 +60,17 @@ const nameField = document.getElementById("name");
 const emailField = document.getElementById("email");
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("confirm-password");
 
 function register() {
     if (nameField.value.trim() == "" || emailField.value.trim() == "" || usernameField.value.trim() == "" ||
         passwordField
-        .value.trim() == "") {
+        .value.trim() == "" || confirmPasswordField.value.trim() === "") {
         window.alert(
             "Please make sure you entered all the fields correctly and check if your e-mail address is valid.")
+        return;
+    } else if (passwordField.value !== confirmPasswordField.value) {
+        window.alert("Passwords do not match")
         return;
     } else {
         const data = {
