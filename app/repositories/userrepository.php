@@ -19,6 +19,7 @@ class UserRepository extends Repository
 
     public function insert($user)
     {
+        // hashing is applied to the password before insertion
         $hash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
 
         $stmt = $this->connection->prepare("INSERT INTO users (name, username, email, password, role) 
@@ -26,6 +27,8 @@ class UserRepository extends Repository
 
         $roleValue = $user->getRole() ? 1 : 0;
 
+        // Using execute() with an associative array, PDO infers parameter types based on the actual values.
+        // source: https://www.php.net/manual/en/pdostatement.execute.php
         $results = $stmt->execute([
             ':name' => $user->getName(),
             ':username' => $user->getUsername(),
@@ -51,7 +54,7 @@ class UserRepository extends Repository
         $stmt->execute();
 
         $count = $stmt->fetchColumn();
-        return $count > 0;
+        return $count > 0; //means there is at least one email
     }
 
 
