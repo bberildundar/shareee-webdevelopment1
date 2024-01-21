@@ -27,10 +27,11 @@
             <div class="bg-white p-6 shadow-lg h-fit text-center rounded-lg">
                 <p class="text-3xl font-semibold mb-6">Join SHAREEE! and create your own posts!</p>
                 <div class="flex flex-col items-center">
-                    <a href="/auth/register" class="text-white hover:bg-rose-300 bg-rose-400 px-4 py-2">Create
+                    <a href="/auth/register"
+                        class="text-white hover:bg-rose-300 bg-rose-400 px-4 py-2 rounded-lg">Create
                         Account</a>
                     <p class="text-xl font-semibold my-2">or</p>
-                    <a href="/auth/login" class="text-white hover:bg-rose-800 bg-rose-900 px-4 py-2">
+                    <a href="/auth/login" class="text-white hover:bg-rose-800 bg-rose-900 px-4 py-2 rounded-lg">
                         Login</a>
                 </div>
             </div>

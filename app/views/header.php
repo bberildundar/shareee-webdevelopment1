@@ -25,11 +25,11 @@
         <div class="space-x-4">
           <?php
           if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] === null) {
-            echo '<a href="/auth/register" class="text-white hover:bg-rose-300 bg-rose-400 px-4 py-2">Create Account</a>';
-            echo '<a href="/auth/login" class="text-white hover:bg-rose-800 bg-rose-900 px-4 py-2">Login</a>';
+            echo '<a href="/auth/register" class="text-white hover:bg-rose-300 bg-rose-400 px-4 py-2 rounded-lg">Create Account</a>';
+            echo '<a href="/auth/login" class="text-white hover:bg-rose-800 bg-rose-900 px-4 py-2 rounded-lg">Login</a>';
           } else {
-            echo '<a href="/post/newPost" class="text-white hover:bg-teal-500 bg-teal-400 px-4 py-2">New Post</a>';
-            echo '<a href="/auth/logout" class="text-white hover:bg-red-600 bg-red-500 px-4 py-2">Logout</a>';
+            echo '<a href="/post/newPost" class="text-white hover:bg-teal-500 bg-teal-400 px-4 py-2 rounded-lg">New Post</a>';
+            echo '<a href="/auth/logout" class="text-white hover:bg-red-600 bg-red-500 px-4 py-2 rounded-lg">Logout</a>';
           }
           ?>
         </div>
