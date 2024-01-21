@@ -1,4 +1,6 @@
-* The SQL file is in the /sql folder: /sql/shareeedb.sql (there are 3 e letters!!!!!!)
+## Betül Beril Dündar (691136) Web Development - 1 End Assignment
+
+*  The SQL file is in the /sql folder: /sql/shareeedb.sql (there are 3 e letters!!!!!!)
 * Github repository: https://github.com/bberildundar/shareee-webdevelopment1
 
 ---
@@ -18,7 +20,7 @@
 
 ---
 
-### List of the Available Functionalities: 
+### Available Functionalities: 
 -	Visitors can see (read) the posts.
   
 -	Visitors can create their own accounts (registration).
