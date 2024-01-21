@@ -1,4 +1,4 @@
-* The SQL file is in /sql folder: shareeedb.sql (there are 3 e letters)
+* The SQL file is in /sql folder: shareeedb.sql (there are 3 e letters!!!!!!)
 * Github repository: https://github.com/bberildundar/shareee-webdevelopment1
 
 ### Admin account:
