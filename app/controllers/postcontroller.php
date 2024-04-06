@@ -14,11 +14,15 @@ class PostController extends Controller
 
     public function newPost()
     {
-        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
-            require __DIR__ . '/../views/post/newPost.php';
-        } else {
-            header('Location: /');
+        //for the retake, this page (newpost) isn't used anymore. since the post section is in the homepage now.
+
+        // if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
+        //     require __DIR__ . '/../views/post/newPost.php';
+        // } else {
+        //     header('Location: /');
+        //     exit();
+        // }
+        header('Location: /');
             exit();
-        }
     }
 }
