@@ -2,14 +2,17 @@
 session_start();
 
 require __DIR__ . '/../../services/postservice.php';
+require __DIR__ . '/../../services/userservice.php';
 
 class PostController
 {
     private $postService;
+    private $userService;
 
     public function __construct()
     {
         $this->postService = new PostService();
+        $this->userService = new UserService();
     }
 
     function index()
@@ -31,6 +34,29 @@ class PostController
                 //if theres no logged in user, api method will do nothing
                 return;
             }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getPosts(){
+        try {
+ 
+            $posts = $this->postService->getAll();
+
+            foreach ($posts as $post) {
+                $user = $this->userService->getById($post->getUserId());
+    
+                // check if user is found before accessing its properties
+                if ($user) {
+                    $post->setName($user->getName());
+                    $post->setUsername($user->getUsername());
+                }
+            }
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($posts);
+
         } catch (Exception $e) {
             echo $e->getMessage();
         }
