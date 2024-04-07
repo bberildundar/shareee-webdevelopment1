@@ -137,12 +137,9 @@ function updatePosts() {
         return response.json()
     })
     .then((data) => {
-             console.log(data);
-            // Update items array with new data
+            //console.log(data);
             posts = data;
-            console.log(posts);
-
-            // Reload cards
+            //console.log(posts);
             reloadPosts(posts);
           })
     .catch((err) => {
@@ -156,7 +153,7 @@ function reloadPosts(posts) {
     const postContainer = document.querySelector('.col-span-5');
     postContainer.innerHTML = '';
     posts.forEach((post) => {
-            // Create HTML elements for each post
+            // HTML element for each post
             const postElement = `
                 <div class="bg-white p-6 shadow-lg mb-6 relative rounded-lg">
                 <?php

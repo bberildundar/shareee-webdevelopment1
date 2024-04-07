@@ -47,7 +47,7 @@ class PostController
             foreach ($posts as $post) {
                 $user = $this->userService->getById($post->getUserId());
     
-                // Check if user is found before accessing its properties
+                // check if user is found before accessing its properties
                 if ($user) {
                     $post->setName($user->getName());
                     $post->setUsername($user->getUsername());
